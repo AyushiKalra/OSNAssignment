@@ -1,19 +1,30 @@
 ﻿@model List<OsnTestApp.Data.Student>
 
 @{
-    <h1>Students</h1>
+    ViewData["Title"] = "Index";
+
+<div class="container p-3">
+    <div class="row pt-4">
+        <div class="col-6">
+            <h2 class="text-primary">Students List</h2>
+        </div>
+        <div class="col-6 text-end">
+            <a asp-controller="Student" asp-action="Add" class="btn btn-primary">
+                <i class="bi bi-plus-square"></i> &nbsp; Add New Student
+            </a>
+        </div>
+    </div>
+    <br />
+    <br />
+
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Date of Birth</th>
                 <th>Address</th>
-                <th>Phone</th>
-                <th>Email</th>
                 <th>Parent Name</th>
-                <th>Parent Address</th>
                 <th>Parent Phone</th>
-                <th>Parent Email</th>
                 <th> </th>
             </tr>
         </thead>
@@ -24,12 +35,8 @@
                     <td>@student.Name</td>
                     <td>@student.DateOfBirth</td>
                     <td>@student.Address</td>
-                    <td>@student.Phone</td>
-                    <td>@student.Email</td>
                     <td>@student.Parent.Name</td>
-                    <td>@student.Parent.Address</td>
                     <td>@student.Parent.Phone</td>
-                    <td>@student.Parent.Email</td>
                     <td><a href="Student/View/@student.Id">View</a></td>
                     <td>
                         <table class="table">
@@ -58,4 +65,5 @@
             }
         </tbody>
     </table>
+</div>
 }

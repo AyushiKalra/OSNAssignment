@@ -1,0 +1,19 @@
+﻿@model IEnumerable<dynamic>
+<h2 class ="text-primary">Report 2: Number of students , greater than or equal to 5, who have scored more than 90 marks</h2>
+<table class="table table-bordered table-striped table-striped-columns" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Count of Students with > 90 Marks</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subject in Model)
+        {
+            <tr>
+                <td>@subject.SubjectName</td>
+                <td>@subject.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>

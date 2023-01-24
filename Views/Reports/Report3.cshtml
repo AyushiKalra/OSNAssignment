@@ -1,0 +1,96 @@
+﻿@model IEnumerable<dynamic>
+<h2 class="text-primary">Report 3: Number of students , greater than or equal to 5, who have scored less than 10 marks</h2>
+<table class="table table-bordered table-striped table-striped-columns" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Count</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subject in Model)
+        {
+            <tr>
+                <td>@subject.SubjectName</td>
+                <td>@subject.Count</td>
+                <td>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detailModal" data-students="@Json.Serialize(subject.Students)">View Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Student and Parent Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parent Name</th>
+                            <th>Parent Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    document.querySelectorAll('.btn-primary').forEach(function (button) {
+        button.addEventListener('click', function () {
+            var students = JSON.parse(this.dataset.students);
+            var studentList = document.querySelector('#studentList');
+            studentList.innerHTML = "";
+            for (let i = 0; i < students.length; i++) {
+                studentList.innerHTML += `<tr><td>${students[i].Name}</td> <td>${students[i].Parent.Name}</td> <td>${students[i].Parent.Phone}</td> <td>${students[i].Parent.Email}</td></tr>`;
+            }
+        });
+    });
+</script>
+
+<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Student and Parent Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Student Name</th>
+                            <th>Parent Name</th>
+                            <th>Parent Phone</th>
+                            <th>Parent Email</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

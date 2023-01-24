@@ -1,0 +1,67 @@
+﻿@model IEnumerable<dynamic>
+<h2 class="text-primary">Report 4: List of subject that students were absent or scored 0.</h2>
+<table class="table table-bordered table-striped table-striped-columns" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Subject Name</th>
+            <th>Count</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var subject in Model)
+        {
+            <tr>
+                <td>@subject.SubjectName</td>
+                <td>@subject.Count</td>
+                <td>
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#detailModal" data-students=@Json.Serialize(subject.Students)>View Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@*<div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="detailModalLabel">Student and Parent Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Parent Name</th>
+                            <th>Parent Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody id="studentList">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.querySelectorAll('a[data-toggle="modal"]').forEach(function (element) {
+        element.addEventListener("click", function (event) {
+            event.preventDefault();
+            console.log(this);
+            console.log(this.getAttribute("data-students"));
+            var students = JSON.parse(this.getAttribute("data-students"));
+            var studentList = document.querySelector("#studentList");
+            console.log(students);
+            studentList.innerHTML = "";
+            for (let i = 0; i < students.length; i++) {
+                studentList.innerHTML += `<tr><td>${students[i].name}</td> <td>${students[i].parent.name}</td> <td>${students[i].parent.phone}</td> <td>${students[i].parent.email}</td></tr>`;
+            }
+        });
+    });
+</script>*@

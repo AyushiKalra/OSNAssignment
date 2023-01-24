@@ -1,0 +1,26 @@
+﻿@model IEnumerable<dynamic>
+
+<h2 class="text-primary">Report 1: Students with more than 90 marks in at least 3 subjects</h2>
+
+<table class="table table-bordered table-striped table-striped-columns" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Subject Name</th>
+            <th>Mark</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            foreach (var mark in student.Marks)
+            {
+                <tr>
+                    <td>@student.Student.Name</td>
+                    <td>@mark.SubjectName</td>
+                    <td>@mark.Mark</td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

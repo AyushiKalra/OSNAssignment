@@ -1,23 +1,22 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OsnTestApp.Data;
-using OsnTestApp.Models;
-using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace OsnTestApp.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly OsnTestAppDbContext dbContext;
+        private readonly DataContext _context;
 
-        public StudentController(OsnTestAppDbContext dbContext)
+        public StudentController(DataContext context)
         {
-            this.dbContext = dbContext;
+            _context = context;
         }
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var students = await dbContext.Student
+            var students = await _context.Student
                            .Include(s => s.Parent)
                            .Include(s => s.Marks)
                            .ToListAsync();
@@ -29,7 +28,9 @@ namespace OsnTestApp.Controllers
         {
             return View();
         }
+        //POST
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(Student addStudentRequest)
         {
             for (int i = 0; i < addStudentRequest.Marks.Count; i++)
@@ -39,48 +40,88 @@ namespace OsnTestApp.Controllers
                     isAbsent = true;
                 addStudentRequest.Marks[i].IsAbsent = isAbsent;
             }
-            await dbContext.Student.AddAsync(addStudentRequest);
-            await dbContext.SaveChangesAsync();
+            await _context.Student.AddAsync(addStudentRequest);
+            await _context.SaveChangesAsync();
             return RedirectToAction("Index");
-
         }
 
         [HttpGet]
         public async Task<IActionResult> View(int id)
         {
-            var student = await dbContext.Student
+            var student = await _context.Student
                            .Include(s => s.Parent)
                            .Include(s => s.Marks)
                            .FirstOrDefaultAsync(x => x.Id == id);
-            if(student == null)
+            if (student == null)
             {
                 //validation
                 return RedirectToAction("Index");
             }
-            return await Task.Run(()=>View("View",student));
+            return await Task.Run(() => View("View", student));
         }
 
+        //Edit
         [HttpPost]
-        public async Task<IActionResult> View(Student editStudent)
+        public async Task<IActionResult> View([Bind("Id,Name,DateOfBirth,Address,Parent,Marks")] Student editStudent)
         {
-            var student = await dbContext.Student
+            var student = await _context.Student
                            .Include(s => s.Parent)
                            .Include(s => s.Marks)
                            .FirstOrDefaultAsync(x => x.Id == editStudent.Id);
-            if (student!= null)
+            if (student != null)
             {
                 student.Name = editStudent.Name;
                 student.DateOfBirth = editStudent.DateOfBirth;
                 student.Address = editStudent.Address;
-                student.Phone = editStudent.Phone;
-                student.Email = editStudent.Email;
                 student.Parent = editStudent.Parent;
                 student.Marks = editStudent.Marks;
-                dbContext.Student.Update(student);
-                await dbContext.SaveChangesAsync();
+
+                _context.Student.Update(student);
+                await _context.SaveChangesAsync();
 
             }
             return RedirectToAction("Index");
+        }
+
+        //Delete
+        [HttpPost]
+        public async Task<IActionResult> Delete(Student delStudent)
+        {
+            var student = await _context.Student
+                           .Include(s => s.Parent)
+                           .Include(s => s.Marks)
+                           .FirstOrDefaultAsync(x => x.Id == delStudent.Id);
+            if (student != null)
+            {
+                _context.Student.Remove(student);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Index");
+        }
+        [HttpGet]
+        public IActionResult SearchByName(string studentName)
+        {
+            var students = _context.Student
+            .Include(s => s.Parent)
+            .Where(s => s.Name.Contains(studentName))
+            .ToList();
+
+            return View(students);
+        }
+        [HttpGet]
+        public IActionResult SearchByNameAndTerm(string studentName, int term)
+        {
+            var student = _context.Student
+                .Include(s => s.Marks)
+                .Where(s => s.Name == studentName && s.Marks.Any(t => t.Term == term)).ToList();
+
+            if (student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
         }
 
     }

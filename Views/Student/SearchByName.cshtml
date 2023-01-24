@@ -1,0 +1,28 @@
+﻿@model List<OsnTestApp.Data.Student>
+@{
+    ViewData["Title"] = "SearchByName";
+}
+
+<table class="table table-bordered table-striped mt-5" style="width:100%;">
+    <thead>
+        <tr>
+            <th>Student Name</th>
+            <th>Address</th>
+            <th>Parent Name</th>
+            <th>Contact Number</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.Address</td>
+                <td>@student.Parent.Name</td>
+                <td>@student.Parent.Phone</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

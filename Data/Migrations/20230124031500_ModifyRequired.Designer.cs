@@ -9,11 +9,11 @@ using OsnTestApp.Data;
 
 #nullable disable
 
-namespace OsnTestApp.Migrations
+namespace OsnTestApp.Data.Migrations
 {
-    [DbContext(typeof(OsnTestAppDbContext))]
-    [Migration("20230122002720_Initial Migration3")]
-    partial class InitialMigration3
+    [DbContext(typeof(DataContext))]
+    [Migration("20230124031500_ModifyRequired")]
+    partial class ModifyRequired
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,14 +31,6 @@ namespace OsnTestApp.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -68,20 +60,12 @@ namespace OsnTestApp.Migrations
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ParentId")
                         .HasColumnType("int");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

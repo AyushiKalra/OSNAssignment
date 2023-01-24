@@ -4,5 +4,19 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p style="text-shadow : 2px 2px #ff0000 ;display: block">OSN School Application</p>
+
 </div>
+<div class="container p-5" style="place-items:center; width:50%">
+    <form class="d-flex" action="/Student/SearchByNameAndTerm" method="get">
+        <label class="me-sm-2 me-2" for="studentName">Student Name:</label>
+        <input class="form-control me-2" type="text" id="studentName" name="studentName">
+        <hr/>
+        <label claa="me-sm-2 me-2" for="term">Term:</label>
+        <input class="form-control me-2" type="text" id="term" name="term">
+        <hr />
+        <input class="btn btn-secondary my-2 my-sm-0" type="submit" value="Search"/>
+    </form>
+
+</div>
+

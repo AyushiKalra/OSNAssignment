@@ -24,34 +24,14 @@
         <span asp-validation-for="Address" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
         <label asp-for="Parent.Name">Parent Name</label>
         <input asp-for="Parent.Name" class="form-control" />
         <span asp-validation-for="Parent.Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Parent.Address">Parent Address</label>
-        <input asp-for="Parent.Address" class="form-control" />
-        <span asp-validation-for="Parent.Address" class="text-danger"></span>
-    </div>
-    <div class="form-group">
         <label asp-for="Parent.Phone">Parent Phone</label>
         <input asp-for="Parent.Phone" class="form-control" />
         <span asp-validation-for="Parent.Phone" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Parent.Email">Parent Email</label>
-        <input asp-for="Parent.Email" class="form-control" />
-        <span asp-validation-for="Parent.Email" class="text-danger"></span>
     </div>
     <br />
     <table class="table table-bordered" id="marksTable">
@@ -106,4 +86,5 @@
         }
     </script>
     <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-danger" asp-action="Delete" asp-controller="Student">Delete</button>
 </form>

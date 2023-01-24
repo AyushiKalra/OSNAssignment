@@ -1,84 +1,69 @@
 ﻿@model OsnTestApp.Data.Student
 @{
 }
-<h1>Add Student</h1>
-<form method="post" action="Add">
-    <div class="form-group">
-        <label asp-for="Name"></label>
-        <input asp-for="Name" class="form-control" />
-        <span asp-validation-for="Name" class="text-danger"></span>
+<form method="post">
+    <div class="border mt-3 p-3">
+        <div class="row pb-2">
+            <h2 class="text-primary">Add Student</h2>
+        </div>
+        @*<div asp-validation-summary="All"></div>*@
+        <div class="form-group mb-3">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="DateOfBirth"></label>
+            <input asp-for="DateOfBirth" class="form-control" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Address"></label>
+            <input asp-for="Address" class="form-control" />
+            <span asp-validation-for="Address" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Parent.Name">Parent Name</label>
+            <input asp-for="Parent.Name" class="form-control" />
+            <span asp-validation-for="Parent.Name" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-3">
+            <label asp-for="Parent.Phone">Parent Phone</label>
+            <input asp-for="Parent.Phone" class="form-control" />
+            <span asp-validation-for="Parent.Phone" class="text-danger"></span>
+        </div>
+        <br />
+        <table class="table table-bordered table-striped table-striped-columns" style="width:100%;" id="marksTable">
+            <thead>
+                <tr>
+                    <th>Subject Name</th>
+                    <th>Term</th>
+                    <th>Mark</th>
+                    <th>IsAbsent</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input asp-for="Marks[0].SubjectName" class="form-control" />
+                        <span asp-validation-for="Marks[0].SubjectName" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Marks[0].Term" class="form-control" />
+                        <span asp-validation-for="Marks[0].Term" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input asp-for="Marks[0].Mark" class="form-control" />
+                        <span asp-validation-for="Marks[0].Mark" class="text-danger"></span>
+                    </td>
+                    <td>
+                        <input type="checkbox" name="Marks[0].IsAbsent" />
+                        <span asp-validation-for="Marks[0].IsAbsent" class="text-danger"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="form-group">
-        <label asp-for="DateOfBirth"></label>
-        <input asp-for="DateOfBirth" class="form-control" />
-        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Address"></label>
-        <input asp-for="Address" class="form-control" />
-        <span asp-validation-for="Address" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Phone"></label>
-        <input asp-for="Phone" class="form-control" />
-        <span asp-validation-for="Phone" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Email"></label>
-        <input asp-for="Email" class="form-control" />
-        <span asp-validation-for="Email" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Parent.Name">Parent Name</label>
-        <input asp-for="Parent.Name" class="form-control" />
-        <span asp-validation-for="Parent.Name" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Parent.Address">Parent Address</label>
-        <input asp-for="Parent.Address" class="form-control" />
-        <span asp-validation-for="Parent.Address" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Parent.Phone">Parent Phone</label>
-        <input asp-for="Parent.Phone" class="form-control" />
-        <span asp-validation-for="Parent.Phone" class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label asp-for="Parent.Email">Parent Email</label>
-        <input asp-for="Parent.Email" class="form-control" />
-        <span asp-validation-for="Parent.Email" class="text-danger"></span>
-    </div>
-    <br />
-    <table class="table table-bordered" id="marksTable">
-        <thead>
-            <tr>
-                <th>Subject Name</th>
-                <th>Term</th>
-                <th>Mark</th>
-                <th>IsAbsent</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    <input asp-for="Marks[0].SubjectName" class="form-control" />
-                    <span asp-validation-for="Marks[0].SubjectName" class="text-danger"></span>
-                </td>
-                <td>
-                    <input asp-for="Marks[0].Term" class="form-control" />
-                    <span asp-validation-for="Marks[0].Term" class="text-danger"></span>
-                </td>
-                <td>
-                    <input asp-for="Marks[0].Mark" class="form-control" />
-                    <span asp-validation-for="Marks[0].Mark" class="text-danger"></span>
-                </td>
-                <td>
-                    <input type="checkbox" name="Marks[0].IsAbsent" />
-                    <span asp-validation-for="Marks[0].IsAbsent" class="text-danger"></span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
     <button type="button" class="btn btn-primary" onclick="addNewRow()">Add New Row</button>
     <script>
         var index = 1;
@@ -98,3 +83,11 @@
     </script>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
+<!--Moving the validation from server side to client side by using exisitng partial views. Custom error will still be server side.-->
+@section Scripts{
+    @{
+        <partial name="_ValidationScriptsPartial"></partial>
+    }
+}
+    
